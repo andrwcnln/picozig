@@ -3,6 +3,7 @@ const rp2040 = @import("rp2040");
 
 const available_sources = [_]Source{
     .{ .name = "pico_three_leds", .target = rp2040.boards.raspberry_pi.pico, .file = "src/three_leds.zig" },
+    .{ .name = "pico_i2c", .target = rp2040.boards.raspberry_pi.pico, .file = "src/i2c.zig" },
 };
 
 pub fn build(b: *std.Build) void {
