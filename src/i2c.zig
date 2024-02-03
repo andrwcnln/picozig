@@ -30,40 +30,17 @@ const SET_NORMAL_DISPLAY: u8 = 0xA6;
 const COMMAND_COLUMN_ADDRESS = 0x21;
 const COMMAND_PAGE_ADDRESS = 0x22;
 
-const INIT = [_]u8{
-    DISPLAY_OFF,
-    SET_DISPLAY_CLOCK_DIV,
-    0x80,
-    SET_MULTIPLEX,
-    0x1F,
-    SET_DISPLAY_OFFSET,
-    0x00,
-    SET_START_LINE | 0x00,
-    CHARGE_PUMP,
-    0x10,
-    MEMORY_MODE,
-    0x00,
-    SEGREMAP | 0x01,
-    COMSCANDEC,
-    SET_COMPINS,
-    0x02,
-    SET_CONSTRAST,
-    0x8F,
-    SET_PRECHARGE,
-    0x22,
-    SET_VCOMDETECT,
-    0x40,
-    SET_DISPLAY_ALLON_RESUME,
-    SET_NORMAL_DISPLAY,
-};
+const INIT = [_]u8{ CONTROL_COMMAND, 0xAE, CONTROL_COMMAND, 0xA8, 0x3F, CONTROL_COMMAND, 0xD3, 0x00, CONTROL_COMMAND, 0x40, CONTROL_COMMAND, 0xA0, CONTROL_COMMAND, 0xC0, CONTROL_COMMAND, 0xDA, 0x02, CONTROL_COMMAND, 0x81, 0x7F, CONTROL_COMMAND, 0xA4, CONTROL_COMMAND, 0xD5, 0x80, CONTROL_COMMAND, 0x8D, 0x14, CONTROL_COMMAND, 0xAF };
 
 const DRAW = [_]u8{
+    CONTROL_COMMAND,
     COMMAND_COLUMN_ADDRESS,
     0x00,
     0x01,
+    CONTROL_COMMAND,
     COMMAND_PAGE_ADDRESS,
     0x00,
-    0x01,
+    0x00,
 };
 
 pub fn main() !void {
@@ -93,12 +70,9 @@ pub fn main() !void {
 
 pub fn send_command(bytes: []const u8) !void {
     const a: i2c.Address = @enumFromInt(ADDRESS);
-    for (bytes) |byte| {
-        const command = [_]u8{ CONTROL_COMMAND, byte };
-        _ = i2c0.write_blocking(a, &command) catch {
-            led.put(1);
-        };
-    }
+    _ = i2c0.write_blocking(a, bytes) catch {
+        led.put(1);
+    };
 }
 pub fn send_data() !void {
     const a: i2c.Address = @enumFromInt(ADDRESS);
