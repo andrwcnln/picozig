@@ -2,6 +2,7 @@ This repository contains some code that I wrote for my Raspberry Pi Pico, using 
 
 The files in the `src` directory do the following:
 - `three_leds.zig`: toggle three LEDs connected to GPIO18-20 (they don't have to be LEDs, that's just what I used)
+- `i2c.zig`: trying (and failing) to communicate over I2C with an SDD1306 OLED display
 
 # Build
 Clone the repository
