@@ -1,8 +1,9 @@
-This repository contains some code that I wrote for my Raspberry Pi Pico, using [Microzig](https://github.com/ZigEmbeddedGroup/microzig). The code here is slightly modified code form the [official Microzig examples](https://github.com/ZigEmbeddedGroup/microzig-examples).
+This repository contains some code that I wrote for my Raspberry Pi Pico, using [Microzig](https://github.com/ZigEmbeddedGroup/microzig). The code here is relies heavily on code from the [official Microzig examples](https://github.com/ZigEmbeddedGroup/microzig-examples).
 
 The files in the `src` directory do the following:
 - `three_leds.zig`: toggle three LEDs connected to GPIO18-20 (they don't have to be LEDs, that's just what I used)
 - `i2c.zig`: a basic driver for sending data over I2C to an SDD1306 OLED display
+- `uart.zig`: communicate over UART, showing different message types; this is very similar to the official Microzig example
 
 # Build
 Clone the repository
